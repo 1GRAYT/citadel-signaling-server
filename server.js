@@ -10,19 +10,14 @@ const io = socketIo(server, {
     }
 });
 
-// Храним аудио потоки
-const audioStreams = new Map();
-
 io.on('connection', (socket) => {
     console.log('User connected:', socket.id);
 
     socket.on('join-voice', (roomId) => {
         socket.join(roomId);
-        socket.roomId = roomId;
         console.log(User ${socket.id} joined voice room: ${roomId});
     });
 
-    // Принимаем аудио данные и пересылаем всем в комнате
     socket.on('audio-data', (data) => {
         socket.to(data.roomId).emit('audio-data', {
             audio: data.audio,
