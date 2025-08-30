@@ -11,11 +11,11 @@ const io = socketIo(server, {
 });
 
 io.on('connection', (socket) => {
-    console.log('User connected:', socket.id);
+    console.log('User connected: ' + socket.id);
 
     socket.on('join-voice', (roomId) => {
         socket.join(roomId);
-        console.log(User ${socket.id} joined voice room: ${roomId});
+        console.log('User ' + socket.id + ' joined voice room: ' + roomId);
     });
 
     socket.on('audio-data', (data) => {
@@ -26,11 +26,11 @@ io.on('connection', (socket) => {
     });
 
     socket.on('disconnect', () => {
-        console.log('User disconnected:', socket.id);
+        console.log('User disconnected: ' + socket.id);
     });
 });
 
 const PORT = process.env.PORT || 3000;
 server.listen(PORT, () => {
-    console.log(✅ Voice server running on port ${PORT});
+    console.log('✅ Voice server running on port ' + PORT);
 });
